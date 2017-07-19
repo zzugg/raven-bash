@@ -1,9 +1,6 @@
 import sys
 from setuptools import setup
 
-if sys.version_info[:2] < (3, 1):
-    sys.exit('raven-bash requires Python 3.1 or higher.')
-
 long_description = '''\
 Raven Sentry client for Bash.
 
@@ -24,11 +21,9 @@ setup(
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache Software License',
-        'Programming Language :: Python :: 3 :: Only',
-        'Programming Language :: Python :: 3.4',
     ],
     keywords='raven sentry bash',
-    author='Viktor Stískala',
+    author='Viktor Stiskala',
     author_email='viktor@stiskala.cz',
     url='https://github.com/hareevs/raven-bash',
     license='Apache License 2.0',

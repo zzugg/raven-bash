@@ -1,7 +1,7 @@
 import argparse
 import re
 from collections import namedtuple
-import configparser
+import ConfigParser as configparser
 import sys
 import os
 from raven import Client
@@ -101,7 +101,7 @@ class LoggerClient:
         # add ENV vars and stderr if provided
         extra = {}
         if shell_args.env:
-            extra['environment'] = dict([item.split('=', maxsplit=1) for item in shell_args.env.split('\n')])
+            extra['environment'] = dict([item.split('=', 1) for item in shell_args.env.split('\n')])
 
         if shell_args.stderr:
             extra['stderr'] = shell_args.stderr
@@ -111,12 +111,17 @@ class LoggerClient:
 def main():
     try:
         dsn = os.environ['SENTRY_DSN']
+        if not dsn:
+            raise KeyError
     except KeyError:
         config = configparser.ConfigParser()
         config.sections()
         config.read(CONFIG_FILE)
 
-        dsn = config['DEFAULT'].get('SENTRY_DSN')
+        try:
+            dsn = config['DEFAULT'].get('SENTRY_DSN')
+        except AttributeError:
+            dsn = config.get('DEFAULT', 'SENTRY_DSN')
 
     if not dsn:
         sys.stderr.write('Missing SENTRY_DSN config from {}\n'.format(CONFIG_FILE))
