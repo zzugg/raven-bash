@@ -14,7 +14,7 @@ For more information please visit project repo on GitHub: https://github.com/har
 
 setup(
     name='raven-bash',
-    version='0.1.1',
+    version='0.2.0',
     description='Raven Sentry client for Bash.',
     long_description=long_description,
     classifiers=[
